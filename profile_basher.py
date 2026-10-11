@@ -12,13 +12,20 @@ from profile import Profile
 import sys
 import pygame.locals
 import pygame.colordict
+import pygame.font
 import re
 
+white = (255, 255, 255)
+black = (0, 0, 0)
+
+print("FONTS: ", pygame.font.get_fonts())
 
 class TargetType:
     index = 0
     cache = {}
     classes = []
+    shortname_re = re.compile(".*/([^/]+)$")
+    font = None
 
     def __init__(self, pattern: re.Pattern, description: str, colour: str):
         self.pattern = re.compile(pattern)
@@ -29,13 +36,24 @@ class TargetType:
     def lookup(cls, target: str):
         if target in cls.cache:
             return cls.cache[target]
+        if cls.font is None:
+            cls.font = pygame.font.SysFont("nimbussansnarrow", 26)
         print(f"looking up {target=}")
         for t in cls.classes:
             print(f"trying {t.description}")
             if t.pattern.match(target) is not None:
                 print(f"match {t.description}")
-                cls.cache[target] = t
-                return t
+                m = cls.shortname_re.match(target)
+                if m:
+                    print(f"groups {m.groups()}")
+                    shortname_text = m.groups()[-1]
+                else:
+                    shortname_text = ""
+
+                print(f"font render {shortname_text=}")
+                shortname = cls.font.render(shortname_text, True, white)
+                cls.cache[target] = t, shortname
+                return t, shortname
 
 
 TargetType.classes = [
@@ -67,8 +85,12 @@ def draw_profile(screen, profile):
                     x1 = reltime * delta_t
                     width = t[1] * delta_t
                     r = Rect(x1, y1, width, height)
-                    target_type = TargetType.lookup(t[2])
+                    target_type, shortname = TargetType.lookup(t[2])
                     pygame.draw.rect(screen, target_type.colour, r, width=3)
+
+                    tr = shortname.get_rect()
+                    tr.topleft = x1+2, y1+2
+                    screen.blit(shortname, tr)
         start_time, end_time = yield
         delta_t = float(screen_rect[2]) / (end_time - start_time)
         delta_y = screen_rect[3] / cpus
