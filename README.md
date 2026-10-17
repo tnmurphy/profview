@@ -1,7 +1,7 @@
 GNU MAKE profile viewer
 =======================
 
-~[Visualise GNU Make builds](examples/gmake_profile_2026-10-11_12-16-19.png)
+![Visualise GNU Make builds](examples/gmake_profile_2026-10-11_12-16-19.png)
 
 Using profiling data from gmake-experimental's profile branch which is in a CSV format one can visualise how parallel the build was.
 
