@@ -17,3 +17,6 @@ The profiling data is like this:
 1791372520.334380, 0.538256, 4, "src/dir.o"
 1791372520.547363, 0.353141, 3, "src/expand.o"
 ```
+
+
+![SVG output](examples/gmake_profile_2026-10-11_12-16-19.svg)
