@@ -1,11 +1,11 @@
 GNU MAKE profile viewer
 =======================
 
-![Visualise GNU Make builds](examples/gmake_profile_2026-10-11_12-16-19.png)
-
 Using profiling data from gmake-experimental's profile branch which is in a CSV format one can visualise how parallel the build was.
 
-The profiling data is like this:
+
+# The Profiling Data 
+This data is generated from GNU Make  [gmake experimental](http://github.com/tnmurphy/gmake-experimental/tree/feature/profile)
 
 ```
 "Start Time (s)","Duration (s)", "Notional CPU", "File"
@@ -18,5 +18,9 @@ The profiling data is like this:
 1791372520.547363, 0.353141, 3, "src/expand.o"
 ```
 
+# Pygame Profile Viewer
+![Visualise GNU Make builds](examples/gmake_profile_2026-10-11_12-16-19.png)
 
+
+# SVG Output from a Profile
 ![SVG output](examples/gmake_profile_2026-10-11_12-16-19.svg)
