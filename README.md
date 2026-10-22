@@ -42,7 +42,7 @@ target3: target4
 target4: 
 	sleep 1
 ```
-[serial build](examples/test_serial.svg)
+![serial build](examples/test_serial.svg)
 
 # A build with 2 parallel tasks (built with gmake -j2)
 ```make
@@ -55,7 +55,7 @@ target1:
 target2: 
 	sleep 1
 ```
-[2 parallel tasks](examples/test_2par.svg)
+![2 parallel tasks](examples/test_2par.svg)
 
 # A build with parallel tasks and a gap showing a period of non utilisation (gmake -j2)
 ```make
@@ -71,4 +71,4 @@ target2:
 target3: 
 	sleep 2
 ```
-[3 tasks, 2 cpus and a gap](examples/test_2par_gap.svg)
+![3 tasks, 2 cpus and a gap](examples/test_2par_gap.svg)
