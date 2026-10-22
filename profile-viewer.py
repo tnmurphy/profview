@@ -48,7 +48,7 @@ class TargetType:
                     print(f"groups {m.groups()}")
                     shortname_text = m.groups()[-1]
                 else:
-                    shortname_text = ""
+                    shortname_text = target[-10:]
 
                 print(f"font render {shortname_text=}")
                 shortname = cls.font.render(shortname_text, True, white)
