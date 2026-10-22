@@ -18,9 +18,57 @@ This data is generated from GNU Make  [gmake experimental](http://github.com/tnm
 1791372520.547363, 0.353141, 3, "src/expand.o"
 ```
 
-# Pygame Profile Viewer
+# Pygame Profile Viewer view of a build of GNU Make
 ![Visualise GNU Make builds](examples/gmake_profile_2026-10-11_12-16-19.png)
 
 
-# SVG Output from a Profile
+# SVG Output from a Profile of a build of GNU Make
 ![SVG output](examples/gmake_profile_2026-10-11_12-16-19.svg)
+
+# A build with several serial tasks (run with gmake)
+```make
+all: target1
+
+
+target1: target2
+	sleep 1
+
+target2: target3
+	sleep 1
+
+target3: target4
+	sleep 1
+
+target4: 
+	sleep 1
+```
+[serial build](examples/test_serial.svg)
+
+# A build with 2 parallel tasks (built with gmake -j2)
+```make
+all: target1 target2
+
+
+target1: 
+	sleep 1
+
+target2: 
+	sleep 1
+```
+[2 parallel tasks](examples/test_2par.svg)
+
+# A build with parallel tasks and a gap showing a period of non utilisation (gmake -j2)
+```make
+all: target1 target2
+
+
+target1: target3
+	sleep 1
+
+target2: 
+	sleep 1
+
+target3: 
+	sleep 2
+```
+[3 tasks, 2 cpus and a gap](examples/test_2par_gap.svg)

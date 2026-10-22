@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="2000" height="1000" viewBox="0 0 2000 1000">
+<defs>
+</defs>
+<rect x="0" y="0" width="2000" height="1000" fill="#FFFFFF" />
+<text x="50" y="20" font-size="18" fill="black" font-family="sans-serif">GNU Make Build Profile</text>
+<text x="0" y="267.5" font-size="14" fill="gray" font-family="sans-serif" text-anchor="end">CPU 0</text>
+<rect x="49.877831948143644" y="42.5" width="1286.423499210173" height="450.0" fill="#32CD32" stroke="#000000" stroke-width="1" />
+<text x="54.877831948143644" y="272.5" font-size="12" fill="white" stroke="black" stroke-width="0.5" font-family="sans-serif">target3</text>
+<rect x="1336.348191774479" y="42.5" width="643.651830671333" height="450.0" fill="#32CD32" stroke="#000000" stroke-width="1" />
+<text x="1341.348191774479" y="272.5" font-size="12" fill="white" stroke="black" stroke-width="0.5" font-family="sans-serif">target1</text>
+<text x="0" y="722.5" font-size="14" fill="gray" font-family="sans-serif" text-anchor="end">CPU 1</text>
+<rect x="50.0" y="497.5" width="643.5399620000007" height="450.0" fill="#32CD32" stroke="#000000" stroke-width="1" />
+<text x="55.0" y="727.5" font-size="12" fill="white" stroke="black" stroke-width="0.5" font-family="sans-serif">target2</text>
+</svg>

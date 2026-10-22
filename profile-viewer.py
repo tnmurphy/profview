@@ -80,17 +80,29 @@ def draw_profile(screen, profile):
             targets = profile.notional_cpus[cpu_idx]
             for t_idx in range(0, len(targets)):
                 t = targets[t_idx]
-                if t[0] >= start_time:
-                    reltime = t[0] - pr.start_time
-                    x1 = reltime * delta_t
-                    width = t[1] * delta_t
-                    r = Rect(x1, y1, width, height)
-                    target_type, shortname = TargetType.lookup(t[2])
-                    pygame.draw.rect(screen, target_type.colour, r, width=3)
+                target_start = t[0]
+                target_end = t[0] + t[1]
 
-                    tr = shortname.get_rect()
-                    tr.topleft = x1+2, y1+2
-                    screen.blit(shortname, tr)
+                # visibility check
+                if target_end < start_time or target_start > end_time:
+                    continue
+
+                # Clipping
+                if target_start < start_time:
+                    target_start = start_time
+                if target_end > end_time:
+                    target_end = end_time
+
+                reltime = target_start - pr.start_time
+                x1 = reltime * delta_t
+                width = (target_end - target_start) * delta_t
+                r = Rect(x1, y1, width, height)
+                target_type, shortname = TargetType.lookup(t[2])
+                pygame.draw.rect(screen, target_type.colour, r, width=3)
+
+                tr = shortname.get_rect()
+                tr.topleft = x1+2, y1+2
+                screen.blit(shortname, tr)
         start_time, end_time = yield
         delta_t = float(screen_rect[2]) / (end_time - start_time)
         delta_y = screen_rect[3] / cpus
