@@ -68,10 +68,19 @@ TargetType.classes = [
 def draw_profile(screen, profile):
 
     cpus = len(profile.notional_cpus)
+    delta_t = 0
+    delta_y = 0
+
+    def rescale():
+        nonlocal delta_t, delta_y
+        delta_t = float(screen_rect[2]) / (end_time - start_time)
+        if cpus < 4:
+            delta_y = screen_rect[3] / 4
+        else:
+            delta_y = screen_rect[3] / cpus
 
     start_time, end_time = yield
-    delta_t = float(screen_rect[2]) / (end_time - start_time)
-    delta_y = screen_rect[3] / cpus
+    rescale()
 
     while True:
         for cpu_idx in range(0, cpus):
@@ -93,7 +102,7 @@ def draw_profile(screen, profile):
                 if target_end > end_time:
                     target_end = end_time
 
-                reltime = target_start - pr.start_time
+                reltime = target_start - start_time
                 x1 = reltime * delta_t
                 width = (target_end - target_start) * delta_t
                 r = Rect(x1, y1, width, height)
@@ -104,8 +113,7 @@ def draw_profile(screen, profile):
                 tr.topleft = x1+2, y1+2
                 screen.blit(shortname, tr)
         start_time, end_time = yield
-        delta_t = float(screen_rect[2]) / (end_time - start_time)
-        delta_y = screen_rect[3] / cpus
+        rescale()
 
 
 def log_key(event):
