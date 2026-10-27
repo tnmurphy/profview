@@ -38,19 +38,19 @@ class TargetType:
             return cls.cache[target]
         if cls.font is None:
             cls.font = pygame.font.SysFont("nimbussansnarrow", 26)
-        print(f"looking up {target=}")
+        #print(f"looking up {target=}")
         for t in cls.classes:
-            print(f"trying {t.description}")
+            #print(f"trying {t.description}")
             if t.pattern.match(target) is not None:
-                print(f"match {t.description}")
+                #print(f"match {t.description}")
                 m = cls.shortname_re.match(target)
                 if m:
-                    print(f"groups {m.groups()}")
+                    #print(f"groups {m.groups()}")
                     shortname_text = m.groups()[-1]
                 else:
                     shortname_text = target[-10:]
 
-                print(f"font render {shortname_text=}")
+                #print(f"font render {shortname_text=}")
                 shortname = cls.font.render(shortname_text, True, white)
                 cls.cache[target] = t, shortname
                 return t, shortname
@@ -127,6 +127,7 @@ def viewer_loop(pr: Profile, screen, screen_rect):
     # Define the "viewport"
     start_time, end_time = pr.start_time, pr.end_time
     zoom = 0.0
+    acceleration = 2.0
     delta_t = 0.0
 
     lines = draw_profile(screen, pr)
@@ -141,9 +142,9 @@ def viewer_loop(pr: Profile, screen, screen_rect):
                 running = False
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.locals.K_UP:
-                    zoom = 0.01
+                    zoom += 0.05
                 elif event.key == pygame.locals.K_DOWN:
-                    zoom = -0.01
+                    zoom += -0.05
                 elif event.key == pygame.locals.K_LEFT:
                     delta_t = -0.01
                 elif event.key == pygame.locals.K_RIGHT:
@@ -157,13 +158,15 @@ def viewer_loop(pr: Profile, screen, screen_rect):
                     delta_t = 0.0
                 elif event.key == pygame.locals.K_RIGHT:
                     delta_t = 0.0
+                elif event.key == pygame.locals.K_ESCAPE:
+                    sys.exit(0)
 
         if zoom != 0.0:
-            print(f"{zoom=} {start_time=} {end_time=} ")
+            #print(f"{zoom=} {start_time=} {end_time=} ")
             uptodate = False
             start_time += zoom
             end_time -= zoom
-            print(f"postzoom {start_time=} {end_time=} ")
+            #print(f"postzoom {start_time=} {end_time=} ")
 
         if delta_t != 0.0:
             uptodate = False
@@ -181,7 +184,7 @@ def viewer_loop(pr: Profile, screen, screen_rect):
             # flip() the display to put your work on screen
             pygame.display.flip()
 
-            clock.tick(2400)  # limits FPS to 60
+            clock.tick(240)  # limits FPS to 60
 
             uptodate = True
 

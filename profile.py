@@ -56,6 +56,9 @@ class Profile:
                     print(f"  {start} {duration} {target}")
                 oldend = start + duration
 
+    @classmethod
+    def merge(cls, otherprofile: Profile):
+        pass
 
 if __name__ == "__main__":
     # print_csv(sys.argv[1])
